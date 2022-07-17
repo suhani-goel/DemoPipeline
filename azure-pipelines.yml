@@ -1,0 +1,21 @@
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.7'
+
+- script: python -m pip install --upgrade pytest
+  displayName: 'Install pytest'
+
+- script: |
+    pip install pytest pytest-azurepipelines
+    pip install pytest-cov
+    pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
+  displayName: 'pytest'
+  
+
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFiles: '**/test-*.xml'
+    testRunTitle: 'Publish test results for Python $(python.version)'
