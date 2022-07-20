@@ -6,6 +6,6 @@ steps:
   - type: Command
     name: "Testing"
     command: |
-      pip3 install pytest
+      python -m pip install --upgrade pytest
       python -m pytest --junitxml=pytest_reports/pytest_report.xml
 
