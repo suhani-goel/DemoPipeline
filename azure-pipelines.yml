@@ -29,7 +29,7 @@ stages:
         testResultsFiles: '**/test-*.xml'
         testRunTitle: 'Publish test results for Python $(python.version)'
 
-stages:
+
 - stage: Deploy
   jobs:  
   - deployment: VMDeploy
