@@ -19,3 +19,12 @@ steps:
   inputs:
     testResultsFiles: '**/test-*.xml'
     testRunTitle: 'Publish test results for Python $(python.version)'
+
+jobs:  
+- deployment: VMDeploy
+  displayName: Demo2
+  environment:
+    name:  Demo2
+    resourceType: VirtualMachine
+    
+
