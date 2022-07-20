@@ -5,7 +5,6 @@ steps:
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '3.7'
-
 - script: python -m pip install --upgrade pytest
   displayName: 'Install pytest'
 
@@ -22,11 +21,12 @@ steps:
     testResultsFiles: '**/test-*.xml'
     testRunTitle: 'Publish test results for Python $(python.version)'
 
-jobs:  
-- deployment: VMDeploy
-  displayName: Demo2
-  environment:
-    name:  Demo2
-    resourceType: VirtualMachine
-    
+- stage : deploy
+  jobs:  
+  - deployment: VMDeploy
+    displayName: Demo2
+    environment:
+      name:  Demo2
+      resourceType: VirtualMachine
+      
 
