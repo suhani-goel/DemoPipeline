@@ -34,7 +34,7 @@ stages:
   jobs:  
   - deployment: VMDeploy
     displayName: Pipeline
-    environment: Pipeline
+    environment:
       name: Pipeline
       resourceType: VirtualMachine
       
