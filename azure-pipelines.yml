@@ -1,31 +1,41 @@
+pool:
+
 trigger:
 - main
 
-steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '3.7'
-- script: python -m pip install --upgrade pytest
-  displayName: 'Install pytest'
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+      
+    
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '3.7'
+    - script: python -m pip install --upgrade pytest
+      displayName: 'Install pytest'
 
-- script: |
-    pip install pytest pytest-azurepipelines
-    pip install pytest-cov
-    pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
-  displayName: 'pytest'
-  
+    - script: |
+        pip install pytest pytest-azurepipelines
+        pip install pytest-cov
+        pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
+      displayName: 'pytest'
+      
 
-- task: PublishTestResults@2
-  condition: succeededOrFailed()
-  inputs:
-    testResultsFiles: '**/test-*.xml'
-    testRunTitle: 'Publish test results for Python $(python.version)'
+    - task: PublishTestResults@2
+      condition: succeededOrFailed()
+      inputs:
+        testResultsFiles: '**/test-*.xml'
+        testRunTitle: 'Publish test results for Python $(python.version)'
 
-jobs:  
-- deployment: VMDeploy
-  displayName: Demo2
-  environment:
-    name:  Demo2
-    resourceType: VirtualMachine
+stages:
+- stage: Deploy
+  jobs:  
+  - deployment: VMDeploy
+    displayName: Demo2
+    environment:
+      name:  Demo2
+      resourceType: VirtualMachine
       
 
