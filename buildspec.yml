@@ -6,6 +6,8 @@ steps:
   - type: Command
     name: "Testing"
     command: |
+      mkdir /usr/bin/python
+      cd /usr/bin/python
       pip3 install pytest
       python -m pytest --junitxml=pytest_reports/pytest_report.xml
 
